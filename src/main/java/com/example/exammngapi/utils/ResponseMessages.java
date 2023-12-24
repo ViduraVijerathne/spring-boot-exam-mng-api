@@ -15,4 +15,5 @@ public class ResponseMessages {
     public static final String RES_STUDENT_PROFILE_URL_IS_EMPTY = "Student profile url is can't be empty";
 
 
+    public static final String RES_PASSWORD_NOT_MATCH = "Password not match" ;
 }

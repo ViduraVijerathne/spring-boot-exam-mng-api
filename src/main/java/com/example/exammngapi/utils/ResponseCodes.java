@@ -14,4 +14,6 @@ public class ResponseCodes {
     public static final int RES_STUDENT_PROFILE_URL_IS_EMPTY = 9;
 
 
+    public static final int RES_PASSWORD_NOT_MATCH = 10 ;
+    public static final int RES_USER_NOT_FOUND = 11;
 }

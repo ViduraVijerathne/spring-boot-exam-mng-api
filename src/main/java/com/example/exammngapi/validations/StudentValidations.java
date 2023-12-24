@@ -1,5 +1,7 @@
 package com.example.exammngapi.validations;
 
+import com.example.exammngapi.dto.AuthDTO;
+import com.example.exammngapi.dto.StudentDTO;
 import com.example.exammngapi.dto.StudentRegisterDTO;
 import com.example.exammngapi.responses.MethodResponse;
 import com.example.exammngapi.utils.ResponseCodes;
@@ -68,5 +70,25 @@ public class StudentValidations {
         }
 
         return  methodResponse;
+    }
+
+    public static MethodResponse studentAuthDTOValidation(AuthDTO authDTO) {
+        MethodResponse methodResponse = new MethodResponse();
+
+        if (authDTO.getEmail().isEmpty()) {
+            methodResponse.setCode(ResponseCodes.RES_STUDENT_EMAIL_IS_EMPTY);
+            methodResponse.setMessage(ResponseMessages.RES_STUDENT_EMAIL_IS_EMPTY);
+        } else if (!validateEmail(authDTO.getEmail())) {
+            methodResponse.setCode(ResponseCodes.RES_STUDENT_EMAIL_IS_NOT_VALID);
+            methodResponse.setMessage(ResponseMessages.RES_STUDENT_EMAIL_IS_NOT_VALID);
+        } else if (authDTO.getPassword().isEmpty()) {
+            methodResponse.setCode(ResponseCodes.RES_STUDENT_PASSWORD_IS_EMPTY);
+            methodResponse.setMessage(ResponseMessages.RES_STUDENT_PASSWORD_IS_EMPTY);
+        } else {
+            methodResponse.setCode(ResponseCodes.RES_SUCCESS);
+            methodResponse.setMessage(ResponseMessages.RES_SUCCESS);
+        }
+
+        return methodResponse;
     }
 }
