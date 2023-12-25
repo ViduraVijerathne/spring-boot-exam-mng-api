@@ -28,4 +28,6 @@ public class ResponseCodes {
 
     public static final int RES_TEACHER_PROFILE_URL_IS_EMPTY = 19 ;
     public static final int RES_SUBJECT_NOT_FOUND = 20 ;
+    public static final int RES_INVALID_PASSWORD = 21 ;
+    public static final int RES_NO_ACCESS_TO_REQUEST_PAVILAGE = 22 ;
 }

@@ -28,4 +28,6 @@ public class ResponseMessages {
     public static final String RES_TEACHER_PROFILE_URL_IS_EMPTY = "teacher profile url is can't be empty";
 
     public static final String RES_SUBJECT_NOT_FOUND = "Subject not found";
+    public static final String RES_INVALID_PASSWORD = "Invalid password";
+    public static final String RES_NO_ACCESS_TO_REQUEST_PAVILAGE = "No access to request pavilage";
 }
