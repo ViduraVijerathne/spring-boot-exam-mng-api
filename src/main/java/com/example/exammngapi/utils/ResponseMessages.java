@@ -30,4 +30,8 @@ public class ResponseMessages {
     public static final String RES_SUBJECT_NOT_FOUND = "Subject not found";
     public static final String RES_INVALID_PASSWORD = "Invalid password";
     public static final String RES_NO_ACCESS_TO_REQUEST_PAVILAGE = "No access to request pavilage";
+    public static final String RES_UNAUTHORIZED = "Unauthorized";
+    public static final String RES_SUBJECT_NAME_EMPTY = "Subject name is empty";
+    public static final String RES_SUBJECT_NAME_LENGTH = "Subject name length should be between 3 to 50";
+    public static final String RES_SUBJECT_ALREADY_EXIST = "Subject already exist";
 }

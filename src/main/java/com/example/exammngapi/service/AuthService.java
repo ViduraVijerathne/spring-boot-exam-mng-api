@@ -12,6 +12,7 @@ import com.example.exammngapi.validations.ROLES;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,5 +68,16 @@ public class AuthService {
         }
 
         return res;
+    }
+
+    public boolean isAuthorizedUser(AuthDTO authDTO, List<ROLES> roles){
+        Optional<AuthEntity> exitAuth = authRepo.findByEmail(authDTO.getEmail());
+        if (exitAuth.isPresent()) {
+            AuthEntity authEntity = exitAuth.get();
+            if(roles.contains(authEntity.getRole())){
+                return authEntity.getPassword().equals(authDTO.getPassword());
+            }
+        }
+        return false;
     }
 }

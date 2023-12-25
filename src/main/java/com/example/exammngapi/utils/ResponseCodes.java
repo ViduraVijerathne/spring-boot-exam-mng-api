@@ -30,4 +30,8 @@ public class ResponseCodes {
     public static final int RES_SUBJECT_NOT_FOUND = 20 ;
     public static final int RES_INVALID_PASSWORD = 21 ;
     public static final int RES_NO_ACCESS_TO_REQUEST_PAVILAGE = 22 ;
+    public static final int RES_UNAUTHORIZED = 23;
+    public static final int RES_SUBJECT_NAME_EMPTY = 24;
+    public static final int RES_SUBJECT_NAME_LENGTH = 25;
+    public static final int RES_SUBJECT_ALREADY_EXIST = 26;
 }
