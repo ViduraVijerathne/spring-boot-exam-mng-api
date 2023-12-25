@@ -1,5 +1,6 @@
 package com.example.exammngapi.entity;
 
+import com.example.exammngapi.validations.ROLES;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,4 +19,5 @@ public class AuthEntity {
     private int authId;
     private String email;
     private String password;
+    private ROLES role;
 }

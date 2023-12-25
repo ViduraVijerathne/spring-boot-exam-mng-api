@@ -10,15 +10,11 @@ import com.example.exammngapi.utils.ResponseMessages;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.example.exammngapi.validations.GeneralValidation.validateEmail;
+
 public class StudentValidations {
 
-    public static boolean validateEmail(String email){
-        final String EMAIL_REGEX =
-                "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        final Pattern pattern = Pattern.compile(EMAIL_REGEX);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
+
 
     public static MethodResponse studentRegistrationValidation(StudentRegisterDTO studentRegisterDTO){
         MethodResponse methodResponse = new MethodResponse();

@@ -8,6 +8,7 @@ import com.example.exammngapi.repo.StudentRepo;
 import com.example.exammngapi.responses.MethodResponse;
 import com.example.exammngapi.utils.ResponseCodes;
 import com.example.exammngapi.utils.ResponseMessages;
+import com.example.exammngapi.validations.ROLES;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class AuthService {
     @Autowired
     StudentRepo studentRepo;
 
-    public MethodResponse makeUser(AuthDTO authDTO) {
+    public MethodResponse makeUser(AuthDTO authDTO,ROLES role) {
         MethodResponse res = new MethodResponse();
 
         Optional<AuthEntity> exitAuth = authRepo.findByEmail(authDTO.getEmail());
@@ -34,6 +35,7 @@ public class AuthService {
             AuthEntity authEntity = new AuthEntity();
             authEntity.setEmail(authDTO.getEmail());
             authEntity.setPassword(authDTO.getPassword());
+            authEntity.setRole(role);
             authRepo.save(authEntity);
             res.setCode(ResponseCodes.RES_SUCCESS);
             res.setMessage(ResponseMessages.RES_SUCCESS);

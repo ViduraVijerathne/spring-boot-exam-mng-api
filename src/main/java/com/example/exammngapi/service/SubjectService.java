@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SubjectService {
@@ -28,5 +29,9 @@ public class SubjectService {
            subjects.add(subjectDTO);
        }
         return  subjects ;
+    }
+
+    public Optional<SubjectEntity> getSubjectBySubjectId(int subjectId) {
+        return subjectRepo.findById(subjectId);
     }
 }

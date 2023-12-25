@@ -8,6 +8,7 @@ import com.example.exammngapi.service.AuthService;
 import com.example.exammngapi.service.StudentService;
 import com.example.exammngapi.utils.ResponseCodes;
 import com.example.exammngapi.utils.ResponseMessages;
+import com.example.exammngapi.validations.ROLES;
 import com.example.exammngapi.validations.StudentValidations;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class StudentController {
             authDTO.setEmail(studentRegisterDTO.getEmail());
             authDTO.setPassword(studentRegisterDTO.getPassword());
 
-            MethodResponse response = authService.makeUser(authDTO);
+            MethodResponse response = authService.makeUser(authDTO, ROLES.STUDENT);
 
             if (response.getCode() == ResponseCodes.RES_SUCCESS) {
                 StudentDTO studentDTO = modelMapper.map(studentRegisterDTO, StudentDTO.class);
