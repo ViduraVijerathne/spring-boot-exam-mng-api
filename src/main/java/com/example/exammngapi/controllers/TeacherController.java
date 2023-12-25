@@ -11,10 +11,7 @@ import com.example.exammngapi.validations.ROLES;
 import com.example.exammngapi.validations.TeacherValidations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/teachers")
@@ -52,6 +49,16 @@ public class TeacherController {
             }
         } else {
             return ResponseEntity.badRequest().body(teacherRegistrationValidationResponse);
+        }
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?>  getTeacherById(@PathVariable("id") int id){
+        MethodResponse methodResponse = teacherService.getTeacherById(id);
+        if(methodResponse.getCode() == ResponseCodes.RES_SUCCESS){
+            return ResponseEntity.ok().body(methodResponse);
+        }else{
+            return ResponseEntity.badRequest().body(methodResponse);
         }
     }
 }

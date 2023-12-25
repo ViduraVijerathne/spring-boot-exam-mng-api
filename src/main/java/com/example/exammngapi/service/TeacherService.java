@@ -47,4 +47,18 @@ public class TeacherService {
 
 
     }
+
+    public MethodResponse getTeacherById(int id) {
+        MethodResponse methodResponse = new MethodResponse();
+        Optional<TeacherEntity> teacherEntityOptional = teacherRepo.findById(id);
+        if (teacherEntityOptional.isPresent()) {
+            methodResponse.setCode(ResponseCodes.RES_SUCCESS);
+            methodResponse.setMessage(ResponseMessages.RES_SUCCESS);
+            methodResponse.setData(modelMapper.map(teacherEntityOptional.get(), TeacherDTO.class));
+        } else {
+            methodResponse.setCode(ResponseCodes.RES_TEACHER_NOT_FOUND);
+            methodResponse.setMessage(ResponseMessages.RES_TEACHER_NOT_FOUND);
+        }
+        return methodResponse;
+    }
 }

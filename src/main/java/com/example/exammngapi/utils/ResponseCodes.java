@@ -34,4 +34,5 @@ public class ResponseCodes {
     public static final int RES_SUBJECT_NAME_EMPTY = 24;
     public static final int RES_SUBJECT_NAME_LENGTH = 25;
     public static final int RES_SUBJECT_ALREADY_EXIST = 26;
+    public static final int RES_TEACHER_NOT_FOUND = 27;
 }

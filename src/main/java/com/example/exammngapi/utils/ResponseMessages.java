@@ -34,4 +34,5 @@ public class ResponseMessages {
     public static final String RES_SUBJECT_NAME_EMPTY = "Subject name is empty";
     public static final String RES_SUBJECT_NAME_LENGTH = "Subject name length should be between 3 to 50";
     public static final String RES_SUBJECT_ALREADY_EXIST = "Subject already exist";
+    public static final String RES_TEACHER_NOT_FOUND = "Teacher not found";
 }

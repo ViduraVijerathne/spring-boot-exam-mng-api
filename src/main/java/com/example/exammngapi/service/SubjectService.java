@@ -31,13 +31,13 @@ public class SubjectService {
 
     public List<SubjectDTO> getAllSubjects() {
         List<SubjectDTO> subjects = new ArrayList<>();
-       List<SubjectEntity> subjectEntities =  subjectRepo.findAll();
+        List<SubjectEntity> subjectEntities = subjectRepo.findAll();
 
-       for(SubjectEntity subjectEntity : subjectEntities){
-           SubjectDTO subjectDTO = modelMapper.map(subjectEntity, SubjectDTO.class);
-           subjects.add(subjectDTO);
-       }
-        return  subjects ;
+        for (SubjectEntity subjectEntity : subjectEntities) {
+            SubjectDTO subjectDTO = modelMapper.map(subjectEntity, SubjectDTO.class);
+            subjects.add(subjectDTO);
+        }
+        return subjects;
     }
 
     public Optional<SubjectEntity> getSubjectBySubjectId(int subjectId) {
@@ -48,36 +48,104 @@ public class SubjectService {
         List<ROLES> accessRoles = List.of(ROLES.ADMIN);
 
         MethodResponse methodResponse = new MethodResponse();
-        if(authService.isAuthorizedUser(authDTO,accessRoles)){
+        if (authService.isAuthorizedUser(authDTO, accessRoles)) {
             MethodResponse subjectDTOValidationResponse = SubjectValidation.validate(subjectDTO);
-            if(subjectDTOValidationResponse.getCode() == ResponseCodes.RES_SUCCESS){
+            if (subjectDTOValidationResponse.getCode() == ResponseCodes.RES_SUCCESS) {
 
-                SubjectEntity subjectEntity = modelMapper.map(subjectDTO,SubjectEntity.class);
+                SubjectEntity subjectEntity = modelMapper.map(subjectDTO, SubjectEntity.class);
                 subjectEntity.setSubjectId(0);
 
                 Optional<SubjectEntity> subjectNameCheckOptional = subjectRepo.findBySubjectName(subjectEntity.getSubjectName());
-                if(subjectNameCheckOptional.isPresent()){
+                if (subjectNameCheckOptional.isPresent()) {
                     methodResponse.setCode(ResponseCodes.RES_SUBJECT_ALREADY_EXIST);
                     methodResponse.setMessage(ResponseMessages.RES_SUBJECT_ALREADY_EXIST);
-                    return  methodResponse;
-                }else {
+                    return methodResponse;
+                } else {
                     subjectRepo.save(subjectEntity);
 
                     methodResponse.setCode(ResponseCodes.RES_SUCCESS);
                     methodResponse.setMessage(ResponseMessages.RES_SUCCESS);
-                    return  methodResponse;
+                    return methodResponse;
                 }
 
+
+            } else {
+                return subjectDTOValidationResponse;
+            }
+
+        } else {
+            methodResponse.setCode(ResponseCodes.RES_UNAUTHORIZED);
+            methodResponse.setMessage(ResponseMessages.RES_UNAUTHORIZED);
+            return methodResponse;
+        }
+
+    }
+
+    public MethodResponse updateSubject(AuthDTO authDTO, int subjectId, SubjectDTO subjectDTO) {
+        List<ROLES> accessRoles = List.of(ROLES.ADMIN);
+
+        MethodResponse methodResponse = new MethodResponse();
+        if (authService.isAuthorizedUser(authDTO, accessRoles)) {
+
+            MethodResponse subjectDTOValidationResponse = SubjectValidation.validate(subjectDTO);
+            if (subjectDTOValidationResponse.getCode() == ResponseCodes.RES_SUCCESS) {
+
+                Optional<SubjectEntity> subjectEntityOptional = subjectRepo.findById(subjectId);
+                if (subjectEntityOptional.isPresent()) {
+                    SubjectEntity subjectEntity = subjectEntityOptional.get();
+                    subjectEntity.setSubjectName(subjectDTO.getSubjectName());
+                    subjectEntity.setSubjectId(subjectId);
+                    subjectRepo.save(subjectEntity);
+
+                    methodResponse.setCode(ResponseCodes.RES_SUCCESS);
+                    methodResponse.setMessage(ResponseMessages.RES_SUCCESS);
+
+                } else {
+                    methodResponse.setCode(ResponseCodes.RES_SUBJECT_NOT_FOUND);
+                    methodResponse.setMessage(ResponseMessages.RES_SUBJECT_NOT_FOUND);
+                }
 
             }else{
                 return subjectDTOValidationResponse;
             }
-
-        }else{
+        }else {
             methodResponse.setCode(ResponseCodes.RES_UNAUTHORIZED);
             methodResponse.setMessage(ResponseMessages.RES_UNAUTHORIZED);
-            return  methodResponse;
         }
-
+        return methodResponse;
     }
+    public MethodResponse updateSubject(AuthDTO authDTO, SubjectDTO subjectDTO) {
+        List<ROLES> accessRoles = List.of(ROLES.ADMIN);
+
+        MethodResponse methodResponse = new MethodResponse();
+        if (authService.isAuthorizedUser(authDTO, accessRoles)) {
+
+            MethodResponse subjectDTOValidationResponse = SubjectValidation.validate(subjectDTO);
+            if (subjectDTOValidationResponse.getCode() == ResponseCodes.RES_SUCCESS) {
+
+                Optional<SubjectEntity> subjectEntityOptional = subjectRepo.findById(subjectDTO.getSubjectId());
+                if (subjectEntityOptional.isPresent()) {
+                    SubjectEntity subjectEntity = subjectEntityOptional.get();
+                    subjectEntity.setSubjectName(subjectDTO.getSubjectName());
+                    subjectEntity.setSubjectId(subjectDTO.getSubjectId());
+                    subjectRepo.save(subjectEntity);
+
+                    methodResponse.setCode(ResponseCodes.RES_SUCCESS);
+                    methodResponse.setMessage(ResponseMessages.RES_SUCCESS);
+
+                } else {
+                    methodResponse.setCode(ResponseCodes.RES_SUBJECT_NOT_FOUND);
+                    methodResponse.setMessage(ResponseMessages.RES_SUBJECT_NOT_FOUND);
+                }
+
+            }else{
+                return subjectDTOValidationResponse;
+            }
+        }else {
+            methodResponse.setCode(ResponseCodes.RES_UNAUTHORIZED);
+            methodResponse.setMessage(ResponseMessages.RES_UNAUTHORIZED);
+        }
+        return methodResponse;
+    }
+
 }
